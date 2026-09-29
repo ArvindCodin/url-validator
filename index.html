@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>URL Validation Using Regular Expressions | Theory of Computation</title>
+<meta name="description" content="A live URL validator built on one composed regular expression, with a finite-automaton view, baseline comparison and ReDoS test.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=JetBrains+Mono:wght@400;600&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <p class="meta">Theory of Computation, Team 7 · SCSB1303</p>
+  <h1>Is this a URL?<br>Ask the automaton.</h1>
+  <p class="lead">A URL is a string in a regular language. Type one below and watch a finite-state machine accept it, or reject it and say exactly where it broke.</p>
+  <div class="box">
+    <label for="u" class="sr">URL to validate</label>
+    <input id="u" type="text" spellcheck="false" autocomplete="off" value="https://user@shop.example.co.in:8443/a%20b?q=1#top">
+    <div id="colored" class="colored" aria-live="polite"></div>
+    <div id="track" class="track"></div>
+    <div id="verdict" class="verdict"></div>
+    <div class="chips" id="chips"></div>
+  </div>
+</header>
+
+<main>
+<section>
+  <h2>What the machine found</h2>
+  <div class="grid2">
+    <table id="parts"></table>
+    <div>
+      <h3>Same input, three validators</h3>
+      <table id="cmp"></table>
+      <p class="note">The naive and intermediate patterns are the kind found in tutorials. Try <code>https://example.com:0</code> or <code>https://-a.com</code>.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Why regular expressions belong in this course</h2>
+  <p>Every regular expression describes a regular language, and every regular language is accepted by a finite automaton (Kleene's theorem). A URL's syntax has no nesting and needs no counter, so a DFA is enough: the string moves through states for scheme, user info, host, port, path, query and fragment, and it is accepted only if it ends in a final state.</p>
+  <p>Some parts are pure finite-state counting. A domain label is 1 to 63 characters, so the machine has 63 chained states. A port from 1 to 65535 is a small set of digit-range branches. No memory is needed, so the whole validator stays regular.</p>
+</section>
+
+<section>
+  <h2>How the pattern is built</h2>
+  <p>Each component has its own sub-pattern. They are composed into one expression, and the whole string must match.</p>
+  <table class="pat" id="pat"></table>
+  <h3>Full expression (JavaScript flavour)</h3>
+  <pre id="src"></pre>
+</section>
+
+<section>
+  <h2>Test suite: 28 labelled URLs</h2>
+  <p>Each URL is labelled valid or invalid by hand against RFC 3986. Each validator is run on every one.</p>
+  <div class="scores" id="scores"></div>
+  <div class="wrap"><table id="suite"></table></div>
+</section>
+
+<section>
+  <h2>Safe against ReDoS</h2>
+  <p>Backtracking engines can take exponential time on some patterns. This one uses bounded quantifiers, and every repeated group starts with a delimiter its body cannot contain (the dot or slash), so there is only one way to split the input. Run adversarial inputs of 5,000 characters:</p>
+  <button id="stress">Run stress test</button>
+  <table id="stressOut"></table>
+</section>
+
+<section>
+  <h2>Limits</h2>
+  <p>A URL that passes is well formed, not necessarily reachable or safe. The pattern accepts localhost and private IPv4 ranges on purpose, so an application that fetches user-supplied URLs still needs an address policy. IPv6 literals and raw Unicode hosts are out of scope.</p>
+</section>
+</main>
+
+<footer>
+  <p>URL Validation Using Regular Expressions · Theory of Computation (SCSB1303), P2BL activity</p>
+  <p>Ashley David · Aravind C · Ashwin Raj G · Anishmitran A S · Arvind Sanjai</p>
+  <p>Evaluator: Ms. V. Gowri Monohari</p>
+</footer>
+<script src="validator.js"></script>
+<script src="cases.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

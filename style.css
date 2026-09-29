@@ -1,0 +1,53 @@
+:root{--bg:#0d1b2e;--ink:#e9eff8;--dim:#8fa3bd;--line:#26405f;--panel:#12253d;--ok:#ffc233;--bad:#ff6b5e;--cy:#5fd0ff}
+*{box-sizing:border-box}
+html{background:var(--bg);scroll-behavior:smooth}
+body{margin:0;color:var(--ink);font:400 18px/1.65 "Source Serif 4",Georgia,serif;
+ background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+ background-size:48px 48px;background-attachment:fixed;background-blend-mode:soft-light}
+body::before{content:"";position:fixed;inset:0;background:rgba(13,27,46,.86);z-index:-1}
+.sr{position:absolute;left:-9999px}
+.hero,main,footer{max-width:980px;margin:0 auto;padding:0 22px}
+.hero{padding-top:64px;padding-bottom:40px}
+.meta{font:600 14px "JetBrains Mono",monospace;color:var(--cy);margin:0 0 18px}
+h1{font:800 clamp(38px,7vw,74px)/1.02 "Bricolage Grotesque",sans-serif;margin:0 0 20px;letter-spacing:-.02em}
+h2{font:700 30px/1.2 "Bricolage Grotesque",sans-serif;margin:0 0 14px}
+h3{font:600 20px "Bricolage Grotesque",sans-serif;margin:24px 0 10px}
+.lead{max-width:60ch;color:var(--dim);font-size:20px;margin:0 0 30px}
+p{max-width:68ch}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:22px}
+input{width:100%;font:400 18px "JetBrains Mono",monospace;color:var(--ink);background:#0a1524;border:2px solid var(--line);border-radius:6px;padding:14px}
+input:focus-visible,button:focus-visible,.chip:focus-visible{outline:3px solid var(--cy);outline-offset:2px}
+.colored{font:600 18px/1.5 "JetBrains Mono",monospace;margin:16px 0 4px;word-break:break-all;min-height:28px}
+.track{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:16px 0}
+.st{font:400 14px "JetBrains Mono",monospace;padding:5px 11px;border-radius:99px;border:1.5px dashed var(--line);color:var(--dim);transition:all .25s}
+.st.on{border:1.5px solid var(--ok);color:var(--ok)}
+.st.bad{border:1.5px solid var(--bad);color:#fff;background:var(--bad)}
+.st.fin.on{background:var(--ok);color:#1a1300;font-weight:600}
+.arrow{color:var(--line)}
+.verdict{font:700 22px "Bricolage Grotesque",sans-serif;min-height:34px}
+.verdict.ok{color:var(--ok)}.verdict.no{color:var(--bad)}
+.verdict small{display:block;font:400 17px "Source Serif 4",serif;color:var(--ink);margin-top:2px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{font:400 13px "JetBrains Mono",monospace;background:none;color:var(--dim);border:1px solid var(--line);border-radius:5px;padding:5px 9px;cursor:pointer}
+.chip:hover{color:var(--ink);border-color:var(--cy)}
+section{padding:46px 0 10px;border-top:1px solid var(--line);margin-top:30px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}body{font-size:17px}}
+table{width:100%;border-collapse:collapse;font-size:16px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:600 15px "Bricolage Grotesque",sans-serif;color:var(--dim)}
+td code,.pat td:last-child,pre,code{font:400 14px/1.5 "JetBrains Mono",monospace}
+code{color:var(--cy)}
+.wrap{overflow-x:auto}
+pre{background:#0a1524;border:1px solid var(--line);border-radius:6px;padding:16px;overflow-x:auto;white-space:pre-wrap;word-break:break-all;color:var(--dim)}
+.ok{color:var(--ok)}.no{color:var(--bad)}
+.note{color:var(--dim);font-size:15px}
+.scores{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0}
+.score{border:1px solid var(--line);border-radius:8px;padding:14px 16px;background:var(--panel)}
+.score b{display:block;font:800 38px "Bricolage Grotesque",sans-serif}
+.score.best{border-color:var(--ok)}.score.best b{color:var(--ok)}
+.score span{color:var(--dim);font-size:15px}
+button{font:700 16px "Bricolage Grotesque",sans-serif;background:var(--ok);color:#1a1300;border:0;border-radius:6px;padding:11px 20px;cursor:pointer;margin-bottom:14px}
+footer{padding-top:40px;padding-bottom:60px;color:var(--dim);font-size:15px;border-top:1px solid var(--line);margin-top:50px}
+footer p{margin:2px 0}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
